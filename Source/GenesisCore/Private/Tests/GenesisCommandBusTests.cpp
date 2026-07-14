@@ -1,6 +1,7 @@
 #if WITH_DEV_AUTOMATION_TESTS
 
 #include "GenesisCommandBus.h"
+#include "GenesisEventSerializer.h"
 #include "Misc/AutomationTest.h"
 
 namespace
@@ -127,32 +128,78 @@ bool FGenesisEventJournalQueryAndReplayTest::RunTest(const FString& Parameters)
     TestEqual(TEXT("Query by entity"), Journal.FindByEntity(FGenesisEntityId(9)).Num(), 1);
     TestEqual(TEXT("Query by command"), Journal.FindByCommand(10).Num(), 1);
 
-    uint64 ReplayHash = 14695981039346656037ull;
-    TestTrue(TEXT("Replay succeeds"), Journal.ReplayToTick(2, [&ReplayHash](const FGenesisDomainEvent& Event)
+    auto ComputeReplayHash = [&Journal]()
     {
-        ReplayHash ^= static_cast<uint64>(Event.CommandId);
-        ReplayHash *= 1099511628211ull;
-        for (const uint8 Byte : Event.Payload)
+        uint64 Hash = 14695981039346656037ull;
+        Journal.ReplayToTick(2, [&Hash](const FGenesisDomainEvent& Event)
         {
-            ReplayHash ^= Byte;
-            ReplayHash *= 1099511628211ull;
-        }
-        return true;
-    }));
+            Hash ^= static_cast<uint64>(Event.CommandId);
+            Hash *= 1099511628211ull;
+            for (const uint8 Byte : Event.Payload)
+            {
+                Hash ^= Byte;
+                Hash *= 1099511628211ull;
+            }
+            return true;
+        });
+        return Hash;
+    };
 
-    uint64 SecondReplayHash = 14695981039346656037ull;
-    Journal.ReplayToTick(2, [&SecondReplayHash](const FGenesisDomainEvent& Event)
-    {
-        SecondReplayHash ^= static_cast<uint64>(Event.CommandId);
-        SecondReplayHash *= 1099511628211ull;
-        for (const uint8 Byte : Event.Payload)
-        {
-            SecondReplayHash ^= Byte;
-            SecondReplayHash *= 1099511628211ull;
-        }
-        return true;
-    });
-    TestEqual(TEXT("Replay produces stable hash"), ReplayHash, SecondReplayHash);
+    TestEqual(TEXT("Replay produces stable hash"), ComputeReplayHash(), ComputeReplayHash());
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FGenesisEventSerializationRoundTripTest,
+    "Genesis.Core.Commands.EventSerialization.RoundTrip",
+    EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+
+bool FGenesisEventSerializationRoundTripTest::RunTest(const FString& Parameters)
+{
+    FGenesisDomainEvent Source;
+    Source.Sequence = 12;
+    Source.Tick = 9;
+    Source.CommandId = 42;
+    Source.EventType = TEXT("Test.Serialized");
+    Source.Entities = {FGenesisEntityId(8), FGenesisEntityId(3)};
+    Source.Payload = {10, 20, 30};
+
+    TArray<uint8> Bytes;
+    TestTrue(TEXT("Event serializes"), FGenesisEventSerializer::Serialize(Source, Bytes));
+
+    FGenesisDomainEvent Restored;
+    TestTrue(TEXT("Event deserializes"), FGenesisEventSerializer::Deserialize(Bytes, Restored));
+    TestEqual(TEXT("Sequence round-trips"), Restored.Sequence, Source.Sequence);
+    TestEqual(TEXT("Tick round-trips"), Restored.Tick, Source.Tick);
+    TestEqual(TEXT("Command round-trips"), Restored.CommandId, Source.CommandId);
+    TestEqual(TEXT("Type round-trips"), Restored.EventType, Source.EventType);
+    TestEqual(TEXT("Entities are canonicalized"), Restored.Entities[0], FGenesisEntityId(3));
+    TestEqual(TEXT("Payload round-trips"), Restored.Payload, Source.Payload);
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FGenesisEventSerializationForwardCompatibilityTest,
+    "Genesis.Core.Commands.EventSerialization.ForwardCompatibleSchema",
+    EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+
+bool FGenesisEventSerializationForwardCompatibilityTest::RunTest(const FString& Parameters)
+{
+    FGenesisDomainEvent FutureEvent;
+    FutureEvent.SchemaVersion = FGenesisDomainEvent::CurrentSchemaVersion + 1;
+    FutureEvent.Sequence = 1;
+    FutureEvent.Tick = 2;
+    FutureEvent.CommandId = 3;
+    FutureEvent.EventType = TEXT("Test.FutureEvent");
+    FutureEvent.Payload = {99};
+
+    TArray<uint8> Bytes;
+    TestTrue(TEXT("Future event schema can be stored"), FGenesisEventSerializer::Serialize(FutureEvent, Bytes));
+
+    FGenesisDomainEvent Restored;
+    TestTrue(TEXT("Known container preserves unknown event schema"), FGenesisEventSerializer::Deserialize(Bytes, Restored));
+    TestEqual(TEXT("Unknown schema version is preserved"), Restored.SchemaVersion, FutureEvent.SchemaVersion);
+    TestEqual(TEXT("Opaque payload is preserved"), Restored.Payload, FutureEvent.Payload);
     return true;
 }
 
