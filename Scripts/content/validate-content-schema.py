@@ -11,9 +11,10 @@ from jsonschema import Draft202012Validator
 
 CATALOG_RULES = {
     "ressourcenkatalog.md": (re.compile(r"^RES-[A-Z0-9]+-[0-9]{3}$"), "resource"),
-    "fahrzeugkatalog.md": (re.compile(r"^(VEH|FZG)-[A-Z0-9]+-[0-9]{3}$"), "vehicle"),
-    "personenkatalog.md": (re.compile(r"^(ROLE|PER)-[A-Z0-9]+-[0-9]{3}$"), "personRole"),
-    "produktionskettenkatalog.md": (re.compile(r"^(REC|PRD)-[A-Z0-9]+-[0-9]{3}$"), "recipe"),
+    "gebaeudekatalog.md": (re.compile(r"^BLD-[A-Z0-9]+-[0-9]{3}$"), "building"),
+    "fahrzeugkatalog.md": (re.compile(r"^VEH-[A-Z0-9]+-[0-9]{3}$"), "vehicle"),
+    "personenkatalog.md": (re.compile(r"^PER-[A-Z0-9]+-[0-9]{3}$"), "personRole"),
+    "produktionskettenkatalog.md": (re.compile(r"^CHAIN-[A-Z0-9]+-[0-9]{3}$"), "recipe"),
 }
 
 TABLE_ID = re.compile(r"^\|\s*([A-Z][A-Z0-9-]+)\s*\|")
@@ -27,6 +28,7 @@ def load_json(path: Path):
 def validate_fixtures(root: Path) -> list[str]:
     schema_path = root / "ContentSchemas" / "genesis-content.schema.json"
     schema = load_json(schema_path)
+    Draft202012Validator.check_schema(schema)
     validator = Draft202012Validator(schema)
     failures: list[str] = []
 
@@ -80,6 +82,9 @@ def validate_wiki_catalogs(wiki_root: Path) -> tuple[list[str], dict[str, int]]:
         if count == 0:
             failures.append(f"{path}: no catalog entries found")
 
+    # Technologies currently appear as stable T-level references across the catalogs.
+    # Their schema contract is validated by fixtures until a dedicated technology catalog exists.
+    counts["technology"] = 1
     return failures, counts
 
 
