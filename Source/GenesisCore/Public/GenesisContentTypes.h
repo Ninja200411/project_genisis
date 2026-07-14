@@ -32,25 +32,59 @@ struct GENESISCORE_API FGenesisQuantity
     bool IsPositive() const { return FMath::IsFinite(Value) && Value > 0.0; }
 };
 
-#define GENESIS_DECLARE_CONTENT_ID(TypeName) \
-USTRUCT(BlueprintType) \
-struct GENESISCORE_API TypeName \
-{ \
-    GENERATED_BODY() \
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genesis|Content") \
-    FName Value; \
-    bool IsValid() const { return !Value.IsNone(); } \
-    friend bool operator==(const TypeName& A, const TypeName& B) { return A.Value == B.Value; } \
+USTRUCT(BlueprintType)
+struct GENESISCORE_API FGenesisBuildingId
+{
+    GENERATED_BODY()
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genesis|Content") FName Value;
+    bool IsValid() const { return !Value.IsNone(); }
+    friend bool operator==(const FGenesisBuildingId& A, const FGenesisBuildingId& B) { return A.Value == B.Value; }
 };
 
-GENESIS_DECLARE_CONTENT_ID(FGenesisBuildingId)
-GENESIS_DECLARE_CONTENT_ID(FGenesisResourceId)
-GENESIS_DECLARE_CONTENT_ID(FGenesisPersonRoleId)
-GENESIS_DECLARE_CONTENT_ID(FGenesisVehicleId)
-GENESIS_DECLARE_CONTENT_ID(FGenesisRecipeId)
-GENESIS_DECLARE_CONTENT_ID(FGenesisTechnologyId)
+USTRUCT(BlueprintType)
+struct GENESISCORE_API FGenesisResourceId
+{
+    GENERATED_BODY()
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genesis|Content") FName Value;
+    bool IsValid() const { return !Value.IsNone(); }
+    friend bool operator==(const FGenesisResourceId& A, const FGenesisResourceId& B) { return A.Value == B.Value; }
+};
 
-#undef GENESIS_DECLARE_CONTENT_ID
+USTRUCT(BlueprintType)
+struct GENESISCORE_API FGenesisPersonRoleId
+{
+    GENERATED_BODY()
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genesis|Content") FName Value;
+    bool IsValid() const { return !Value.IsNone(); }
+    friend bool operator==(const FGenesisPersonRoleId& A, const FGenesisPersonRoleId& B) { return A.Value == B.Value; }
+};
+
+USTRUCT(BlueprintType)
+struct GENESISCORE_API FGenesisVehicleId
+{
+    GENERATED_BODY()
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genesis|Content") FName Value;
+    bool IsValid() const { return !Value.IsNone(); }
+    friend bool operator==(const FGenesisVehicleId& A, const FGenesisVehicleId& B) { return A.Value == B.Value; }
+};
+
+USTRUCT(BlueprintType)
+struct GENESISCORE_API FGenesisRecipeId
+{
+    GENERATED_BODY()
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genesis|Content") FName Value;
+    bool IsValid() const { return !Value.IsNone(); }
+    friend bool operator==(const FGenesisRecipeId& A, const FGenesisRecipeId& B) { return A.Value == B.Value; }
+};
+
+USTRUCT(BlueprintType)
+struct GENESISCORE_API FGenesisTechnologyId
+{
+    GENERATED_BODY()
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Genesis|Content") FName Value;
+    bool IsValid() const { return !Value.IsNone(); }
+    friend bool operator==(const FGenesisTechnologyId& A, const FGenesisTechnologyId& B) { return A.Value == B.Value; }
+};
 
 USTRUCT(BlueprintType)
 struct GENESISCORE_API FGenesisDefinitionMetadata
