@@ -1,0 +1,49 @@
+[
+  {
+    "type": "resource",
+    "id": "resource:iron_ore",
+    "metadata": { "schemaMajor": 1, "schemaMinor": 0, "displayName": "Iron Ore" },
+    "storageUnit": "kg",
+    "unitMass": { "value": 1, "unit": "kg" },
+    "unitVolume": { "value": 0.0002, "unit": "m3" }
+  },
+  {
+    "type": "technology",
+    "id": "technology:basic_metallurgy",
+    "metadata": { "schemaMajor": 1, "schemaMinor": 0, "displayName": "Basic Metallurgy" },
+    "researchCost": { "value": 100, "unit": "credit" },
+    "researchTime": { "value": 60, "unit": "s" }
+  },
+  {
+    "type": "building",
+    "id": "building:smelter_mk1",
+    "metadata": { "schemaMajor": 1, "schemaMinor": 0, "displayName": "Smelter Mk I" },
+    "constructionCost": [{ "resource": "resource:iron_ore", "amount": { "value": 100, "unit": "kg" } }],
+    "constructionTime": { "value": 30, "unit": "s" },
+    "powerDemand": { "value": 5000, "unit": "W" },
+    "requiredTechnologies": ["technology:basic_metallurgy"]
+  },
+  {
+    "type": "personRole",
+    "id": "role:operator",
+    "metadata": { "schemaMajor": 1, "schemaMinor": 0, "displayName": "Operator" },
+    "wagePerSecond": { "value": 0.05, "unit": "credit" }
+  },
+  {
+    "type": "vehicle",
+    "id": "vehicle:cargo_cart",
+    "metadata": { "schemaMajor": 1, "schemaMinor": 0, "displayName": "Cargo Cart" },
+    "cargoMass": { "value": 1000, "unit": "kg" },
+    "cargoVolume": { "value": 5, "unit": "m3" },
+    "powerDemand": { "value": 1000, "unit": "W" }
+  },
+  {
+    "type": "recipe",
+    "id": "recipe:smelt_iron",
+    "metadata": { "schemaMajor": 1, "schemaMinor": 0, "displayName": "Smelt Iron" },
+    "inputs": [{ "resource": "resource:iron_ore", "amount": { "value": 2, "unit": "kg" } }],
+    "outputs": [{ "resource": "resource:iron_ore", "amount": { "value": 1, "unit": "kg" } }],
+    "duration": { "value": 5, "unit": "s" },
+    "supportedBuildings": ["building:smelter_mk1"]
+  }
+]
