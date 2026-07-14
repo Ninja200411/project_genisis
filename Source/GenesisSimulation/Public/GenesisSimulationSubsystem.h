@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GenesisCommandBus.h"
 #include "GenesisSimulationClock.h"
 #include "GenesisTickScheduler.h"
 #include "Subsystems/GameInstanceSubsystem.h"
@@ -41,16 +42,27 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Genesis|Simulation")
     bool AdvanceOneTick();
 
+    FGenesisCommandResult SubmitCommand(FGenesisCommandEnvelope Command);
+    bool RegisterCommandHandler(FGenesisCommandHandler Handler);
+    void AddReadModelConsumer(TFunction<void(const TArray<FGenesisDomainEvent>&)> Consumer);
+
     FGenesisTickScheduler& GetScheduler() { return Scheduler; }
     const FGenesisTickScheduler& GetScheduler() const { return Scheduler; }
+    const FGenesisEventJournal& GetEventJournal() const { return EventJournal; }
 
 private:
+    void RegisterCoreSystems();
     void ExecuteDueTicks(int32 TickCount);
+    void ProcessCommands(int64 TickNumber);
+    void PublishReadModels(int64 TickNumber);
 
     static constexpr int32 MaxTicksPerFrame = 16;
 
     FGenesisSimulationClock Clock;
     FGenesisTickScheduler Scheduler;
+    FGenesisCommandBus CommandBus;
+    FGenesisEventJournal EventJournal;
+    TArray<TFunction<void(const TArray<FGenesisDomainEvent>&)>> ReadModelConsumers;
     FGenesisTickMetrics LastTickMetrics;
     bool bInitialized = false;
 };
