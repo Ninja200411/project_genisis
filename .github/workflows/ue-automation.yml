@@ -11,10 +11,32 @@ jobs:
     runs-on: [self-hosted, Windows, X64, unreal-5.8]
     timeout-minutes: 30
     steps:
-      - name: Checkout
+      - name: Checkout project
         uses: actions/checkout@v4
         with:
           lfs: true
+
+      - name: Checkout authoritative wiki
+        uses: actions/checkout@v4
+        with:
+          repository: Ninja200411/wikijs
+          path: External/wikijs
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install content validation dependencies
+        shell: powershell
+        run: python -m pip install --disable-pip-version-check -r .\Scripts\content\requirements.txt
+
+      - name: Validate content schemas and wiki catalog coverage
+        shell: powershell
+        run: |
+          python .\Scripts\content\validate-content-schema.py `
+            --wiki-root .\External\wikijs `
+            --report .\Saved\ContentValidation\report.json
 
       - name: Validate golden save fixtures
         shell: powershell
@@ -31,7 +53,7 @@ jobs:
         shell: powershell
         run: .\Scripts\test\run-automation.ps1 -TestFilter "Genesis."
 
-      - name: Upload automation and golden-save artifacts
+      - name: Upload automation, content and golden-save artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -39,5 +61,6 @@ jobs:
           path: |
             Saved/AutomationReports
             Saved/Logs/GenesisAutomation.log
+            Saved/ContentValidation
             TestData/GoldenSaves
           if-no-files-found: warn
