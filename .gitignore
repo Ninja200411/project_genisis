@@ -1,9 +1,11 @@
-Binaries
-DerivedDataCache
-Intermediate
-Saved
-.vscode
-.vs
+# Unreal-generated directories
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+
+# IDE-generated files
+.vs/
 *.VC.db
 *.opensdf
 *.opendb
@@ -12,3 +14,15 @@ Saved
 *.suo
 *.xcodeproj
 *.xcworkspace
+
+# Keep the shared VS Code configuration, ignore generated workspace data
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+
+# Local and platform files
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
