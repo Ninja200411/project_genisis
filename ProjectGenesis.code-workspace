@@ -1,7 +1,7 @@
 {
 	"folders": [
 		{
-			"name": "test",
+			"name": "ProjectGenesis",
 			"path": "."
 		},
 		{
@@ -30,14 +30,14 @@
 		"version": "2.0.0",
 		"tasks": [
 			{
-				"label": "test Win64 Debug Build",
+				"label": "ProjectGenesis Win64 Debug Build",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"test",
+					"ProjectGenesis",
 					"Win64",
 					"Debug",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -47,19 +47,19 @@
 				}
 			},
 			{
-				"label": "test Win64 Debug Rebuild",
+				"label": "ProjectGenesis Win64 Debug Rebuild",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"test",
+					"ProjectGenesis",
 					"Win64",
 					"Debug",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"test Win64 Debug Clean"
+					"ProjectGenesis Win64 Debug Clean"
 				],
 				"type": "shell",
 				"options": {
@@ -67,14 +67,14 @@
 				}
 			},
 			{
-				"label": "test Win64 Debug Clean",
+				"label": "ProjectGenesis Win64 Debug Clean",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"test",
+					"ProjectGenesis",
 					"Win64",
 					"Debug",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -84,14 +84,14 @@
 				}
 			},
 			{
-				"label": "test Win64 DebugGame Build",
+				"label": "ProjectGenesis Win64 DebugGame Build",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"test",
+					"ProjectGenesis",
 					"Win64",
 					"DebugGame",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -101,19 +101,19 @@
 				}
 			},
 			{
-				"label": "test Win64 DebugGame Rebuild",
+				"label": "ProjectGenesis Win64 DebugGame Rebuild",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"test",
+					"ProjectGenesis",
 					"Win64",
 					"DebugGame",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"test Win64 DebugGame Clean"
+					"ProjectGenesis Win64 DebugGame Clean"
 				],
 				"type": "shell",
 				"options": {
@@ -121,14 +121,14 @@
 				}
 			},
 			{
-				"label": "test Win64 DebugGame Clean",
+				"label": "ProjectGenesis Win64 DebugGame Clean",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"test",
+					"ProjectGenesis",
 					"Win64",
 					"DebugGame",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -138,14 +138,14 @@
 				}
 			},
 			{
-				"label": "test Win64 Development Build",
+				"label": "ProjectGenesis Win64 Development Build",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"test",
+					"ProjectGenesis",
 					"Win64",
 					"Development",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -155,19 +155,19 @@
 				}
 			},
 			{
-				"label": "test Win64 Development Rebuild",
+				"label": "ProjectGenesis Win64 Development Rebuild",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"test",
+					"ProjectGenesis",
 					"Win64",
 					"Development",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"test Win64 Development Clean"
+					"ProjectGenesis Win64 Development Clean"
 				],
 				"type": "shell",
 				"options": {
@@ -175,14 +175,14 @@
 				}
 			},
 			{
-				"label": "test Win64 Development Clean",
+				"label": "ProjectGenesis Win64 Development Clean",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"test",
+					"ProjectGenesis",
 					"Win64",
 					"Development",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -192,14 +192,14 @@
 				}
 			},
 			{
-				"label": "test Win64 Test Build",
+				"label": "ProjectGenesis Win64 Test Build",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"test",
+					"ProjectGenesis",
 					"Win64",
 					"Test",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -209,19 +209,19 @@
 				}
 			},
 			{
-				"label": "test Win64 Test Rebuild",
+				"label": "ProjectGenesis Win64 Test Rebuild",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"test",
+					"ProjectGenesis",
 					"Win64",
 					"Test",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"test Win64 Test Clean"
+					"ProjectGenesis Win64 Test Clean"
 				],
 				"type": "shell",
 				"options": {
@@ -229,14 +229,14 @@
 				}
 			},
 			{
-				"label": "test Win64 Test Clean",
+				"label": "ProjectGenesis Win64 Test Clean",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"test",
+					"ProjectGenesis",
 					"Win64",
 					"Test",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -246,14 +246,14 @@
 				}
 			},
 			{
-				"label": "test Win64 Shipping Build",
+				"label": "ProjectGenesis Win64 Shipping Build",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"test",
+					"ProjectGenesis",
 					"Win64",
 					"Shipping",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -263,19 +263,19 @@
 				}
 			},
 			{
-				"label": "test Win64 Shipping Rebuild",
+				"label": "ProjectGenesis Win64 Shipping Rebuild",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"test",
+					"ProjectGenesis",
 					"Win64",
 					"Shipping",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"test Win64 Shipping Clean"
+					"ProjectGenesis Win64 Shipping Clean"
 				],
 				"type": "shell",
 				"options": {
@@ -283,14 +283,14 @@
 				}
 			},
 			{
-				"label": "test Win64 Shipping Clean",
+				"label": "ProjectGenesis Win64 Shipping Clean",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"test",
+					"ProjectGenesis",
 					"Win64",
 					"Shipping",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -300,14 +300,14 @@
 				}
 			},
 			{
-				"label": "testEditor Win64 Debug Build",
+				"label": "ProjectGenesisEditor Win64 Debug Build",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"testEditor",
+					"ProjectGenesisEditor",
 					"Win64",
 					"Debug",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -317,19 +317,19 @@
 				}
 			},
 			{
-				"label": "testEditor Win64 Debug Rebuild",
+				"label": "ProjectGenesisEditor Win64 Debug Rebuild",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"testEditor",
+					"ProjectGenesisEditor",
 					"Win64",
 					"Debug",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"testEditor Win64 Debug Clean"
+					"ProjectGenesisEditor Win64 Debug Clean"
 				],
 				"type": "shell",
 				"options": {
@@ -337,14 +337,14 @@
 				}
 			},
 			{
-				"label": "testEditor Win64 Debug Clean",
+				"label": "ProjectGenesisEditor Win64 Debug Clean",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"testEditor",
+					"ProjectGenesisEditor",
 					"Win64",
 					"Debug",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -354,14 +354,14 @@
 				}
 			},
 			{
-				"label": "testEditor Win64 DebugGame Build",
+				"label": "ProjectGenesisEditor Win64 DebugGame Build",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"testEditor",
+					"ProjectGenesisEditor",
 					"Win64",
 					"DebugGame",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -371,19 +371,19 @@
 				}
 			},
 			{
-				"label": "testEditor Win64 DebugGame Rebuild",
+				"label": "ProjectGenesisEditor Win64 DebugGame Rebuild",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"testEditor",
+					"ProjectGenesisEditor",
 					"Win64",
 					"DebugGame",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"testEditor Win64 DebugGame Clean"
+					"ProjectGenesisEditor Win64 DebugGame Clean"
 				],
 				"type": "shell",
 				"options": {
@@ -391,14 +391,14 @@
 				}
 			},
 			{
-				"label": "testEditor Win64 DebugGame Clean",
+				"label": "ProjectGenesisEditor Win64 DebugGame Clean",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"testEditor",
+					"ProjectGenesisEditor",
 					"Win64",
 					"DebugGame",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -408,14 +408,14 @@
 				}
 			},
 			{
-				"label": "testEditor Win64 Development Build",
+				"label": "ProjectGenesisEditor Win64 Development Build",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"testEditor",
+					"ProjectGenesisEditor",
 					"Win64",
 					"Development",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -425,19 +425,19 @@
 				}
 			},
 			{
-				"label": "testEditor Win64 Development Rebuild",
+				"label": "ProjectGenesisEditor Win64 Development Rebuild",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"testEditor",
+					"ProjectGenesisEditor",
 					"Win64",
 					"Development",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"testEditor Win64 Development Clean"
+					"ProjectGenesisEditor Win64 Development Clean"
 				],
 				"type": "shell",
 				"options": {
@@ -445,14 +445,14 @@
 				}
 			},
 			{
-				"label": "testEditor Win64 Development Clean",
+				"label": "ProjectGenesisEditor Win64 Development Clean",
 				"group": "build",
 				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"testEditor",
+					"ProjectGenesisEditor",
 					"Win64",
 					"Development",
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -467,10 +467,10 @@
 		"version": "0.2.0",
 		"configurations": [
 			{
-				"name": "Launch test (Debug)",
+				"name": "Launch ProjectGenesis (Debug)",
 				"request": "launch",
-				"program": "C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\Binaries\\Win64\\UnrealGame-Win64-Debug.exe",
-				"preLaunchTask": "test Win64 Debug Build",
+				"program": "C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\Binaries\\Win64\\UnrealGame-Win64-Debug.exe",
+				"preLaunchTask": "ProjectGenesis Win64 Debug Build",
 				"args": [
 				],
 				"cwd": "C:\\Program Files\\Epic Games\\UE_5.8",
@@ -486,10 +486,10 @@
 				}
 			},
 			{
-				"name": "Launch test (DebugGame)",
+				"name": "Launch ProjectGenesis (DebugGame)",
 				"request": "launch",
-				"program": "C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\Binaries\\Win64\\UnrealGame-Win64-DebugGame.exe",
-				"preLaunchTask": "test Win64 DebugGame Build",
+				"program": "C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\Binaries\\Win64\\UnrealGame-Win64-DebugGame.exe",
+				"preLaunchTask": "ProjectGenesis Win64 DebugGame Build",
 				"args": [
 				],
 				"cwd": "C:\\Program Files\\Epic Games\\UE_5.8",
@@ -505,10 +505,10 @@
 				}
 			},
 			{
-				"name": "Launch test (Development)",
+				"name": "Launch ProjectGenesis (Development)",
 				"request": "launch",
-				"program": "C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\Binaries\\Win64\\UnrealGame.exe",
-				"preLaunchTask": "test Win64 Development Build",
+				"program": "C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\Binaries\\Win64\\UnrealGame.exe",
+				"preLaunchTask": "ProjectGenesis Win64 Development Build",
 				"args": [
 				],
 				"cwd": "C:\\Program Files\\Epic Games\\UE_5.8",
@@ -524,10 +524,10 @@
 				}
 			},
 			{
-				"name": "Launch test (Test)",
+				"name": "Launch ProjectGenesis (Test)",
 				"request": "launch",
-				"program": "C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\Binaries\\Win64\\UnrealGame-Win64-Test.exe",
-				"preLaunchTask": "test Win64 Test Build",
+				"program": "C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\Binaries\\Win64\\UnrealGame-Win64-Test.exe",
+				"preLaunchTask": "ProjectGenesis Win64 Test Build",
 				"args": [
 				],
 				"cwd": "C:\\Program Files\\Epic Games\\UE_5.8",
@@ -543,10 +543,10 @@
 				}
 			},
 			{
-				"name": "Launch test (Shipping)",
+				"name": "Launch ProjectGenesis (Shipping)",
 				"request": "launch",
-				"program": "C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\Binaries\\Win64\\UnrealGame-Win64-Shipping.exe",
-				"preLaunchTask": "test Win64 Shipping Build",
+				"program": "C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\Binaries\\Win64\\UnrealGame-Win64-Shipping.exe",
+				"preLaunchTask": "ProjectGenesis Win64 Shipping Build",
 				"args": [
 				],
 				"cwd": "C:\\Program Files\\Epic Games\\UE_5.8",
@@ -562,12 +562,12 @@
 				}
 			},
 			{
-				"name": "Launch testEditor (Debug)",
+				"name": "Launch ProjectGenesisEditor (Debug)",
 				"request": "launch",
 				"program": "C:\\Program Files\\Epic Games\\UE_5.8\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-Debug.exe",
-				"preLaunchTask": "testEditor Win64 Debug Build",
+				"preLaunchTask": "ProjectGenesisEditor Win64 Debug Build",
 				"args": [
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject"
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject"
 				],
 				"cwd": "C:\\Program Files\\Epic Games\\UE_5.8",
 				"stopAtEntry": false,
@@ -582,12 +582,12 @@
 				}
 			},
 			{
-				"name": "Launch testEditor (DebugGame)",
+				"name": "Launch ProjectGenesisEditor (DebugGame)",
 				"request": "launch",
 				"program": "C:\\Program Files\\Epic Games\\UE_5.8\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-DebugGame.exe",
-				"preLaunchTask": "testEditor Win64 DebugGame Build",
+				"preLaunchTask": "ProjectGenesisEditor Win64 DebugGame Build",
 				"args": [
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject"
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject"
 				],
 				"cwd": "C:\\Program Files\\Epic Games\\UE_5.8",
 				"stopAtEntry": false,
@@ -602,12 +602,12 @@
 				}
 			},
 			{
-				"name": "Launch testEditor (Development)",
+				"name": "Launch ProjectGenesisEditor (Development)",
 				"request": "launch",
 				"program": "C:\\Program Files\\Epic Games\\UE_5.8\\Engine\\Binaries\\Win64\\UnrealEditor.exe",
-				"preLaunchTask": "testEditor Win64 Development Build",
+				"preLaunchTask": "ProjectGenesisEditor Win64 Development Build",
 				"args": [
-					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject"
+					"C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject"
 				],
 				"cwd": "C:\\Program Files\\Epic Games\\UE_5.8",
 				"stopAtEntry": false,
@@ -630,7 +630,7 @@
 				"args": [
 					"-projectfiles",
 					"-vscode",
-					"-project=C:\\Users\\Larsh\\Documents\\Unreal Projects\\test\\test.uproject",
+					"-project=C:\\Users\\Larsh\\Documents\\Unreal Projects\\ProjectGenesis\\ProjectGenesis.uproject",
 					"-game",
 					"-engine",
 					"-dotnet"
