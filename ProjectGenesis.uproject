@@ -24,10 +24,6 @@
     {
       "Name": "EnhancedInput",
       "Enabled": true
-    },
-    {
-      "Name": "GameplayTags",
-      "Enabled": true
     }
   ]
 }
