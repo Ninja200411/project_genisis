@@ -6,8 +6,8 @@ on:
   pull_request:
 
 jobs:
-  genesis-simulation-tests:
-    name: Genesis simulation tests
+  genesis-tests:
+    name: Genesis build and automation tests
     runs-on: [self-hosted, Windows, X64, unreal-5.8]
     timeout-minutes: 30
     steps:
@@ -20,9 +20,9 @@ jobs:
         shell: powershell
         run: .\Scripts\build\build-editor.ps1
 
-      - name: Run deterministic automation tests
+      - name: Run Genesis automation tests
         shell: powershell
-        run: .\Scripts\test\run-automation.ps1 -TestFilter "Genesis.Simulation."
+        run: .\Scripts\test\run-automation.ps1 -TestFilter "Genesis."
 
       - name: Upload automation report
         if: always()
