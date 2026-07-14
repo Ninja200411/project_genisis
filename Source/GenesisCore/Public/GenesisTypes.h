@@ -11,6 +11,11 @@ struct GENESISCORE_API FGenesisEntityId
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Genesis|Entity")
     int64 Value = 0;
 
+    explicit FGenesisEntityId(const int64 InValue = 0)
+        : Value(InValue)
+    {
+    }
+
     bool IsValid() const { return Value > 0; }
 
     friend bool operator==(const FGenesisEntityId& Left, const FGenesisEntityId& Right)
@@ -21,6 +26,11 @@ struct GENESISCORE_API FGenesisEntityId
     friend bool operator!=(const FGenesisEntityId& Left, const FGenesisEntityId& Right)
     {
         return !(Left == Right);
+    }
+
+    friend bool operator<(const FGenesisEntityId& Left, const FGenesisEntityId& Right)
+    {
+        return Left.Value < Right.Value;
     }
 };
 
