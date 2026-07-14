@@ -10,54 +10,38 @@ $Resolver = Join-Path $ProjectRoot "Scripts\common\resolve-engine.ps1"
 . $Resolver
 $ResolvedEngineRoot = Resolve-GenesisEngineRoot -RequestedRoot $EngineRoot
 
-Write-Host "Verwende Unreal Engine: $ResolvedEngineRoot"
+Write-Host "Using Unreal Engine: $ResolvedEngineRoot"
 
 $Generator = Join-Path $ResolvedEngineRoot "Engine\Build\BatchFiles\GenerateProjectFiles.bat"
 $RunUbt = Join-Path $ResolvedEngineRoot "Engine\Build\BatchFiles\RunUBT.bat"
-$UbtExe = Join-Path $ResolvedEngineRoot "Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.exe"
 $UbtDll = Join-Path $ResolvedEngineRoot "Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll"
 $BundledDotNetRoot = Join-Path $ResolvedEngineRoot "Engine\Binaries\ThirdParty\DotNet"
-$BundledDotNet = $null
-
-if (Test-Path $BundledDotNetRoot) {
-    $BundledDotNet = Get-ChildItem -Path $BundledDotNetRoot -Filter "dotnet.exe" -File -Recurse -ErrorAction SilentlyContinue |
-        Sort-Object FullName -Descending |
-        Select-Object -First 1 -ExpandProperty FullName
-}
+$BundledDotNet = Get-ChildItem $BundledDotNetRoot -Filter "dotnet.exe" -Recurse -ErrorAction SilentlyContinue |
+    Sort-Object FullName -Descending |
+    Select-Object -First 1
 
 if (Test-Path $Generator) {
-    Write-Host "Projektgenerierung über GenerateProjectFiles.bat"
+    Write-Host "Generating project files with GenerateProjectFiles.bat"
     & $Generator -project="$ProjectFile" -game -engine -vscode
 }
 elseif (Test-Path $RunUbt) {
-    Write-Host "Projektgenerierung über RunUBT.bat mit Unreal-Runtime"
+    Write-Host "Generating project files with RunUBT.bat and Unreal bundled runtime"
     & $RunUbt -Mode=GenerateProjectFiles -Project="$ProjectFile" -Game -Engine -VSCode
 }
 elseif ($BundledDotNet -and (Test-Path $UbtDll)) {
-    Write-Host "Projektgenerierung über gebündeltes .NET: $BundledDotNet"
-    $PreviousDotNetRoot = $env:DOTNET_ROOT
-    $env:DOTNET_ROOT = Split-Path $BundledDotNet -Parent
-    try {
-        & $BundledDotNet $UbtDll -Mode=GenerateProjectFiles -Project="$ProjectFile" -Game -Engine -VSCode
-    }
-    finally {
-        $env:DOTNET_ROOT = $PreviousDotNetRoot
-    }
-}
-elseif (Test-Path $UbtExe) {
-    Write-Warning "Die gebündelte Unreal-.NET-Runtime wurde nicht gefunden. UnrealBuildTool.exe verwendet das global installierte .NET."
-    & $UbtExe -Mode=GenerateProjectFiles -Project="$ProjectFile" -Game -Engine -VSCode
+    Write-Host "Generating project files with bundled .NET: $($BundledDotNet.FullName)"
+    & $BundledDotNet.FullName $UbtDll -Mode=GenerateProjectFiles -Project="$ProjectFile" -Game -Engine -VSCode
 }
 elseif (Test-Path $UbtDll) {
-    Write-Warning "Die gebündelte Unreal-.NET-Runtime wurde nicht gefunden. UnrealBuildTool.dll verwendet das global installierte dotnet."
+    Write-Warning "Using global dotnet. Install the runtime required by this Unreal Engine version if execution fails."
     & dotnet $UbtDll -Mode=GenerateProjectFiles -Project="$ProjectFile" -Game -Engine -VSCode
 }
 else {
-    throw "Kein nutzbarer Projektgenerator wurde unter $ResolvedEngineRoot gefunden. Erwartet wurden GenerateProjectFiles.bat, RunUBT.bat oder UnrealBuildTool."
+    throw "No supported Unreal project-file generator was found under $ResolvedEngineRoot."
 }
 
 if ($LASTEXITCODE -ne 0) {
-    throw "VS-Code-Projektgenerierung fehlgeschlagen (ExitCode $LASTEXITCODE)."
+    throw "VS Code project generation failed with exit code $LASTEXITCODE."
 }
 
-Write-Host "VS-Code-Arbeitsbereich wurde für ProjectGenesis erzeugt."
+Write-Host "VS Code workspace generated for ProjectGenesis."
