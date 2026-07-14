@@ -1,0 +1,35 @@
+name: Unreal Automation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  genesis-simulation-tests:
+    name: Genesis simulation tests
+    runs-on: [self-hosted, Windows, X64, unreal-5.8]
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Build editor target
+        shell: powershell
+        run: .\Scripts\build\build-editor.ps1
+
+      - name: Run deterministic automation tests
+        shell: powershell
+        run: .\Scripts\test\run-automation.ps1 -TestFilter "Genesis.Simulation."
+
+      - name: Upload automation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: genesis-automation-report
+          path: |
+            Saved/AutomationReports
+            Saved/Logs/GenesisAutomation.log
+          if-no-files-found: warn
