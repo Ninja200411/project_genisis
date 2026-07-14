@@ -19,6 +19,7 @@ bool FGenesisEntityIdGenerator::RestoreState(const FGenesisEntityGeneratorState&
     {
         return false;
     }
+
     NextValue = State.NextValue;
     return true;
 }
@@ -36,6 +37,7 @@ bool FGenesisEntityRegistry::QueueDestroy(const FGenesisEntityId EntityId)
     {
         return false;
     }
+
     PendingDestroys.Add(EntityId);
     return true;
 }
@@ -66,18 +68,19 @@ void FGenesisEntityRegistry::ApplyPendingChanges()
 
 void FGenesisEntityRegistry::Reset()
 {
-    ActiveEntities.Reset();
-    PendingCreates.Reset();
-    PendingDestroys.Reset();
-    Generator = FGenesisEntityIdGenerator{};
+    const TArray<FGenesisEntityId> EntitiesToRemove = ActiveEntities;
     for (IGenesisComponentStore* Store : ComponentStores)
     {
-        const TArray<FGenesisEntityId> Entities = ActiveEntities;
-        for (const FGenesisEntityId EntityId : Entities)
+        for (const FGenesisEntityId EntityId : EntitiesToRemove)
         {
             Store->RemoveEntity(EntityId);
         }
     }
+
+    ActiveEntities.Reset();
+    PendingCreates.Reset();
+    PendingDestroys.Reset();
+    Generator = FGenesisEntityIdGenerator{};
 }
 
 bool FGenesisEntityRegistry::IsAlive(const FGenesisEntityId EntityId) const
@@ -99,6 +102,7 @@ bool FGenesisEntityRegistry::RegisterComponentStore(IGenesisComponentStore& Stor
     {
         return false;
     }
+
     ComponentStores.Add(&Store);
     SortStores();
     return true;
@@ -138,20 +142,30 @@ FGenesisEntityRegistrySnapshot FGenesisEntityRegistry::CaptureSnapshot() const
 bool FGenesisEntityRegistry::RestoreSnapshot(const FGenesisEntityRegistrySnapshot& Snapshot)
 {
     if (Snapshot.SchemaVersion != FGenesisEntityRegistrySnapshot::CurrentSchemaVersion ||
-        !Generator.RestoreState(Snapshot.Generator))
+        Snapshot.Generator.SchemaVersion != FGenesisEntityGeneratorState::CurrentSchemaVersion ||
+        Snapshot.Generator.NextValue <= 0)
     {
         return false;
     }
 
     for (int32 Index = 0; Index < Snapshot.ActiveEntities.Num(); ++Index)
     {
-        if (!Snapshot.ActiveEntities[Index].IsValid() ||
-            (Index > 0 && !(Snapshot.ActiveEntities[Index - 1] < Snapshot.ActiveEntities[Index])))
+        const FGenesisEntityId EntityId = Snapshot.ActiveEntities[Index];
+        if (!EntityId.IsValid() ||
+            EntityId.Value >= Snapshot.Generator.NextValue ||
+            (Index > 0 && !(Snapshot.ActiveEntities[Index - 1] < EntityId)))
         {
             return false;
         }
     }
 
+    FGenesisEntityIdGenerator RestoredGenerator;
+    if (!RestoredGenerator.RestoreState(Snapshot.Generator))
+    {
+        return false;
+    }
+
+    Generator = RestoredGenerator;
     ActiveEntities = Snapshot.ActiveEntities;
     PendingCreates.Reset();
     PendingDestroys.Reset();
