@@ -44,6 +44,7 @@ bool FGenesisEventSerializer::Serialize(const FGenesisDomainEvent& Event, TArray
     Writer << CommandId;
     SerializeName(Writer, EventType);
 
+    Entities.Sort();
     int32 EntityCount = Entities.Num();
     Writer << EntityCount;
     for (const FGenesisEntityId EntityId : Entities)
@@ -63,7 +64,8 @@ bool FGenesisEventSerializer::Deserialize(const TArray<uint8>& Bytes, FGenesisDo
         return false;
     }
 
-    FMemoryReader Reader(Bytes, true);
+    TArray<uint8> MutableBytes = Bytes;
+    FMemoryReader Reader(MutableBytes, true);
     uint32 FileMagic = 0;
     int32 ContainerVersion = 0;
     FGenesisDomainEvent Event;
