@@ -1,0 +1,18 @@
+{
+  "fixture": "genesis-core-v4",
+  "container_schema": 4,
+  "content_hash": "genesis-test-content-v1",
+  "build_version": "ue5.8-test",
+  "saved_tick": 42,
+  "seed": 1337,
+  "compression": "zlib",
+  "required_blocks": [
+    "Core.Clock",
+    "Core.Scheduler",
+    "Core.Entities",
+    "Core.EventJournal",
+    "Core.Commands",
+    "Component.Test.Reservations"
+  ],
+  "purpose": "Canonical input fixture for deterministic golden-save generation and CI roundtrip validation."
+}
