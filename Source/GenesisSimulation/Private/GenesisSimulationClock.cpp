@@ -68,6 +68,33 @@ void FGenesisSimulationClock::SetSpeed(const EGenesisSimulationSpeed InSpeed)
     }
 }
 
+FGenesisSimulationClockState FGenesisSimulationClock::CaptureState() const
+{
+    FGenesisSimulationClockState State;
+    State.CurrentTick = CurrentTick;
+    State.TickDurationMicroseconds = TickDurationMicroseconds;
+    State.PendingSimulationMicroseconds = AccumulatedSimulationMicroseconds;
+    State.Speed = Speed;
+    State.ResumeSpeed = ResumeSpeed;
+    return State;
+}
+
+bool FGenesisSimulationClock::RestoreState(const FGenesisSimulationClockState& State)
+{
+    if (State.SchemaVersion != FGenesisSimulationClockState::CurrentSchemaVersion || State.CurrentTick < 0 ||
+        State.TickDurationMicroseconds <= 0 || State.PendingSimulationMicroseconds < 0)
+    {
+        return false;
+    }
+
+    CurrentTick = State.CurrentTick;
+    TickDurationMicroseconds = State.TickDurationMicroseconds;
+    AccumulatedSimulationMicroseconds = State.PendingSimulationMicroseconds;
+    Speed = State.Speed;
+    ResumeSpeed = State.ResumeSpeed;
+    return true;
+}
+
 double FGenesisSimulationClock::GetPendingSimulationSeconds() const
 {
     return static_cast<double>(AccumulatedSimulationMicroseconds) / 1000000.0;
