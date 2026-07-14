@@ -16,6 +16,13 @@ jobs:
         with:
           lfs: true
 
+      - name: Validate golden save fixtures
+        shell: powershell
+        run: |
+          $fixtures = Get-ChildItem .\TestData\GoldenSaves\*.golden.json -ErrorAction Stop
+          if ($fixtures.Count -lt 1) { throw "No golden save fixtures found." }
+          foreach ($fixture in $fixtures) { Get-Content $fixture.FullName -Raw | ConvertFrom-Json | Out-Null }
+
       - name: Build editor target
         shell: powershell
         run: .\Scripts\build\build-editor.ps1
@@ -24,7 +31,7 @@ jobs:
         shell: powershell
         run: .\Scripts\test\run-automation.ps1 -TestFilter "Genesis."
 
-      - name: Upload automation report
+      - name: Upload automation and golden-save artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -32,4 +39,5 @@ jobs:
           path: |
             Saved/AutomationReports
             Saved/Logs/GenesisAutomation.log
+            TestData/GoldenSaves
           if-no-files-found: warn
