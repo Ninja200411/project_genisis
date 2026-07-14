@@ -18,6 +18,9 @@ public:
     void Resume();
     void SetSpeed(EGenesisSimulationSpeed InSpeed);
 
+    FGenesisSimulationClockState CaptureState() const;
+    bool RestoreState(const FGenesisSimulationClockState& State);
+
     int64 GetCurrentTick() const { return CurrentTick; }
     int64 GetTickDurationMicroseconds() const { return TickDurationMicroseconds; }
     EGenesisSimulationSpeed GetSpeed() const { return Speed; }
