@@ -20,11 +20,16 @@ public:
     void Clear();
 
     FGenesisTickMetrics ExecuteTick(int64 TickNumber);
+    FGenesisSchedulerState CaptureState() const;
+    bool ValidateState(const FGenesisSchedulerState& State) const;
+
     const TArray<FGenesisScheduledSystem>& GetExecutionPlan() const { return ExecutionPlan; }
+    const TMap<FName, int32>& GetBudgetOverrunsBySystem() const { return BudgetOverrunsBySystem; }
 
 private:
     void SortExecutionPlan();
 
     TArray<FGenesisScheduledSystem> ExecutionPlan;
+    TMap<FName, int32> BudgetOverrunsBySystem;
     int32 TotalBudgetOverrunCount = 0;
 };
