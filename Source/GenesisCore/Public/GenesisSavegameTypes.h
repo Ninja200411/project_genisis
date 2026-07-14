@@ -1,7 +1,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "GenesisSavegameTypes.generated.h"
 
 UENUM(BlueprintType)
@@ -14,8 +13,19 @@ enum class EGenesisSavegameErrorCode : uint8
     BuildHashMismatch,
     MissingBlock,
     CorruptBlock,
+    CompressionFailed,
+    DecompressionFailed,
     MigrationMissing,
-    MigrationFailed
+    MigrationFailed,
+    ReplayFailed,
+    StateHashMismatch
+};
+
+UENUM()
+enum class EGenesisSavegameCompression : uint8
+{
+    None,
+    Zlib
 };
 
 USTRUCT(BlueprintType)
@@ -42,10 +52,7 @@ struct GENESISCORE_API FGenesisSavegameResult
         return Result;
     }
 
-    static FGenesisSavegameResult Failure(
-        const EGenesisSavegameErrorCode Code,
-        const FName InMessageKey,
-        const FName InBlockId = NAME_None)
+    static FGenesisSavegameResult Failure(const EGenesisSavegameErrorCode Code, const FName InMessageKey, const FName InBlockId = NAME_None)
     {
         FGenesisSavegameResult Result;
         Result.ErrorCode = Code;
@@ -65,6 +72,12 @@ struct GENESISCORE_API FGenesisSavegameBlock
 
     UPROPERTY()
     int32 SchemaVersion = 1;
+
+    UPROPERTY()
+    EGenesisSavegameCompression Compression = EGenesisSavegameCompression::None;
+
+    UPROPERTY()
+    int32 UncompressedSize = 0;
 
     UPROPERTY()
     uint32 Checksum = 0;
