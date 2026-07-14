@@ -19,10 +19,10 @@ $UbtDll = Join-Path $ResolvedEngineRoot "Engine\Binaries\DotNET\UnrealBuildTool\
 if (Test-Path $Generator) {
     & $Generator -project="$ProjectFile" -game -engine -vscode
 }
-elif (Test-Path $UbtExe) {
+elseif (Test-Path $UbtExe) {
     & $UbtExe -Mode=GenerateProjectFiles -Project="$ProjectFile" -Game -Engine -VSCode
 }
-elif (Test-Path $UbtDll) {
+elseif (Test-Path $UbtDll) {
     & dotnet $UbtDll -Mode=GenerateProjectFiles -Project="$ProjectFile" -Game -Engine -VSCode
 }
 else {
