@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "budgets": [
+    {"system":"tick-scheduler","entities":1000,"medianMs":0.25,"p95Ms":0.5,"maxMs":1.0,"maxBytes":1048576},
+    {"system":"production","entities":10000,"medianMs":2.0,"p95Ms":4.0,"maxMs":8.0,"maxBytes":16777216},
+    {"system":"inventory","entities":10000,"medianMs":1.5,"p95Ms":3.0,"maxMs":6.0,"maxBytes":16777216},
+    {"system":"construction","entities":1000,"medianMs":1.0,"p95Ms":2.0,"maxMs":4.0,"maxBytes":8388608},
+    {"system":"read-models","entities":10000,"medianMs":2.5,"p95Ms":5.0,"maxMs":10.0,"maxBytes":33554432},
+    {"system":"save-load","entities":100000,"medianMs":250.0,"p95Ms":400.0,"maxMs":750.0,"maxBytes":536870912}
+  ],
+  "regressionWarningPercent": 5
+}
