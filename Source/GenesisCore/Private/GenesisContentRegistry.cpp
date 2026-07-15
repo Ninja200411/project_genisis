@@ -12,7 +12,13 @@ int32 TierRank(const EGenesisContentSourceTier Tier)
 void SortUnique(TArray<FName>& Values)
 {
     Values.Sort(FNameLexicalLess());
-    Values.SetNum(Algo::Unique(Values));
+    for (int32 Index = Values.Num() - 1; Index > 0; --Index)
+    {
+        if (Values[Index] == Values[Index - 1])
+        {
+            Values.RemoveAt(Index, 1, EAllowShrinking::No);
+        }
+    }
 }
 
 void AddIndexValues(TMap<FName, TArray<FName>>& Index, const TArray<FName>& Keys, const FName DefinitionId)
@@ -121,7 +127,7 @@ bool FGenesisContentRegistry::BuildSnapshot(
         {
             OutDiagnostics.Add(Diagnostic(
                 TEXT("GEN-CONTENT-OVERRIDE-CONFLICT"), Record, TEXT("replaces"), TEXT("override.compatible"),
-                FString::Printf(TEXT("Definition conflicts with existing source '%s'."), *Existing.Source.NormalizedPath))));
+                FString::Printf(TEXT("Definition conflicts with existing source '%s'."), *Existing.Source.NormalizedPath)));
             continue;
         }
 
@@ -151,7 +157,7 @@ bool FGenesisContentRegistry::BuildSnapshot(
             {
                 OutDiagnostics.Add(Diagnostic(
                     TEXT("GEN-CONTENT-UNKNOWN-REFERENCE"), Record, TEXT("references"), TEXT("reference.exists"),
-                    FString::Printf(TEXT("Unknown content reference '%s'."), *Reference.ToString()))));
+                    FString::Printf(TEXT("Unknown content reference '%s'."), *Reference.ToString())));
             }
         }
     }
