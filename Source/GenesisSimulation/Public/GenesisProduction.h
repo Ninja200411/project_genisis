@@ -51,7 +51,7 @@ struct GENESISSIMULATION_API FGenesisRecipeAmount
 };
 
 USTRUCT(BlueprintType)
-struct GENESISSIMULATION_API FGenesisRecipeDefinition
+struct GENESISSIMULATION_API FGenesisRuntimeRecipeDefinition
 {
     GENERATED_BODY()
     UPROPERTY(EditAnywhere, BlueprintReadOnly) FName Id;
@@ -84,8 +84,8 @@ struct GENESISSIMULATION_API FGenesisProductionRuntime
 class GENESISSIMULATION_API FGenesisRecipeSelector
 {
 public:
-    static const FGenesisRecipeDefinition* Select(
-        const TArray<FGenesisRecipeDefinition>& Candidates,
+    static const FGenesisRuntimeRecipeDefinition* Select(
+        const TArray<FGenesisRuntimeRecipeDefinition>& Candidates,
         EGenesisRecipeSelectionMode Mode,
         FName ManualId = NAME_None);
 };
@@ -93,8 +93,8 @@ public:
 class GENESISSIMULATION_API FGenesisRecipeProcessor
 {
 public:
-    bool Start(const FGenesisRecipeDefinition& Recipe, FGenesisInventory& Input, FGenesisInventory& Output, int64 Tick);
-    void Advance(const FGenesisRecipeDefinition& Recipe, FGenesisInventory& Input, FGenesisInventory& Output, int64 Tick);
+    bool Start(const FGenesisRuntimeRecipeDefinition& Recipe, FGenesisInventory& Input, FGenesisInventory& Output, int64 Tick);
+    void Advance(const FGenesisRuntimeRecipeDefinition& Recipe, FGenesisInventory& Input, FGenesisInventory& Output, int64 Tick);
     void Pause(FName Reason);
     void Resume();
     void ApplyMaintenance(bool bCleaning, int32 RepairPermille);
