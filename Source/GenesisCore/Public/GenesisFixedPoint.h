@@ -13,8 +13,14 @@ struct GENESISCORE_API FGenesisFixedPoint
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Genesis|Simulation")
     int64 Raw = 0;
 
-    static FGenesisFixedPoint FromRaw(const int64 Value) { return {Value}; }
-    static FGenesisFixedPoint FromWhole(const int64 Value) { return {Value * Scale}; }
+    static FGenesisFixedPoint FromRaw(const int64 Value)
+    {
+        FGenesisFixedPoint Result;
+        Result.Raw = Value;
+        return Result;
+    }
+
+    static FGenesisFixedPoint FromWhole(const int64 Value) { return FromRaw(Value * Scale); }
 
     double ToDouble() const { return static_cast<double>(Raw) / static_cast<double>(Scale); }
     bool IsNegative() const { return Raw < 0; }
