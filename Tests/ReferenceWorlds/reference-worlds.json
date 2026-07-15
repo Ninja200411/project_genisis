@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "worlds": [
+    {
+      "id": "reference:small",
+      "seed": 1001,
+      "contentHash": "generated-at-runtime",
+      "entityBudget": 1000,
+      "checkpoints": [100, 1000, 10000]
+    },
+    {
+      "id": "reference:medium",
+      "seed": 1002,
+      "contentHash": "generated-at-runtime",
+      "entityBudget": 10000,
+      "checkpoints": [100, 1000, 10000]
+    },
+    {
+      "id": "reference:large",
+      "seed": 1003,
+      "contentHash": "generated-at-runtime",
+      "entityBudget": 100000,
+      "checkpoints": [100, 1000, 10000]
+    }
+  ]
+}
