@@ -19,13 +19,15 @@ if (-not (Test-Path $BuildScript)) {
     throw "Build.bat wurde nicht gefunden: $BuildScript"
 }
 
+$ParallelArgument = "-MaxParallelActions=$MaxParallelActions"
+
 Write-Host "Verwende Unreal Engine: $ResolvedEngineRoot"
 Write-Host "Maximale parallele Build-Aktionen: $MaxParallelActions"
 & $BuildScript ProjectGenesisEditor Win64 $Configuration `
-    -Project="$ProjectFile" `
+    "-Project=$ProjectFile" `
     -WaitMutex `
     -FromMsBuild `
-    -MaxParallelActions=$MaxParallelActions
+    $ParallelArgument
 
 if ($LASTEXITCODE -ne 0) {
     throw "Editor-Build fehlgeschlagen (ExitCode $LASTEXITCODE)."
