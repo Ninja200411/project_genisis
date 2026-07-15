@@ -13,14 +13,14 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(
 
 bool FGenesisRecipeSelectionTest::RunTest(const FString& Parameters)
 {
-    FGenesisRecipeDefinition Expensive;
+    FGenesisRuntimeRecipeDefinition Expensive;
     Expensive.Id = TEXT("recipe:expensive");
     Expensive.Cost = FGenesisFixedPoint::FromWhole(20);
-    FGenesisRecipeDefinition Cheap;
+    FGenesisRuntimeRecipeDefinition Cheap;
     Cheap.Id = TEXT("recipe:cheap");
     Cheap.Cost = FGenesisFixedPoint::FromWhole(10);
-    const TArray<FGenesisRecipeDefinition> Recipes{Expensive, Cheap};
-    const FGenesisRecipeDefinition* Selected = FGenesisRecipeSelector::Select(Recipes, EGenesisRecipeSelectionMode::LowestCost);
+    const TArray<FGenesisRuntimeRecipeDefinition> Recipes{Expensive, Cheap};
+    const FGenesisRuntimeRecipeDefinition* Selected = FGenesisRecipeSelector::Select(Recipes, EGenesisRecipeSelectionMode::LowestCost);
     TestNotNull(TEXT("A recipe is selected"), Selected);
     TestEqual(TEXT("Lowest cost recipe wins"), Selected->Id, Cheap.Id);
     return true;
@@ -40,7 +40,11 @@ bool FGenesisPlacementParityTest::RunTest(const FString& Parameters)
     const TArray<FGenesisPlacementViolation> Preview = FGenesisPlacementService::Validate(Request, 10.0f);
     const TArray<FGenesisPlacementViolation> Commit = FGenesisPlacementService::Validate(Request, 10.0f);
     TestEqual(TEXT("Preview and commit use identical validation"), Preview.Num(), Commit.Num());
-    TestEqual(TEXT("First violation is stable"), Preview[0].Code, Commit[0].Code);
+    TestTrue(TEXT("At least one violation is reported"), Preview.Num() > 0);
+    if (!Preview.IsEmpty() && !Commit.IsEmpty())
+    {
+        TestEqual(TEXT("First violation is stable"), Preview[0].Code, Commit[0].Code);
+    }
     return true;
 }
 
