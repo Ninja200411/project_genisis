@@ -2,7 +2,7 @@
 
 namespace
 {
-int64 Score(const FGenesisRecipeDefinition& Recipe, const EGenesisRecipeSelectionMode Mode)
+int64 Score(const FGenesisRuntimeRecipeDefinition& Recipe, const EGenesisRecipeSelectionMode Mode)
 {
     switch (Mode)
     {
@@ -22,13 +22,13 @@ int64 Score(const FGenesisRecipeDefinition& Recipe, const EGenesisRecipeSelectio
 }
 }
 
-const FGenesisRecipeDefinition* FGenesisRecipeSelector::Select(
-    const TArray<FGenesisRecipeDefinition>& Candidates,
+const FGenesisRuntimeRecipeDefinition* FGenesisRecipeSelector::Select(
+    const TArray<FGenesisRuntimeRecipeDefinition>& Candidates,
     const EGenesisRecipeSelectionMode Mode,
     const FName ManualId)
 {
-    const FGenesisRecipeDefinition* Best = nullptr;
-    for (const FGenesisRecipeDefinition& Candidate : Candidates)
+    const FGenesisRuntimeRecipeDefinition* Best = nullptr;
+    for (const FGenesisRuntimeRecipeDefinition& Candidate : Candidates)
     {
         if (Mode == EGenesisRecipeSelectionMode::Manual && Candidate.Id != ManualId) continue;
         if (Best == nullptr || Score(Candidate, Mode) < Score(*Best, Mode) ||
@@ -41,7 +41,7 @@ const FGenesisRecipeDefinition* FGenesisRecipeSelector::Select(
 }
 
 bool FGenesisRecipeProcessor::Start(
-    const FGenesisRecipeDefinition& Recipe,
+    const FGenesisRuntimeRecipeDefinition& Recipe,
     FGenesisInventory& Input,
     FGenesisInventory& Output,
     const int64 Tick)
@@ -88,7 +88,7 @@ bool FGenesisRecipeProcessor::Start(
 }
 
 void FGenesisRecipeProcessor::Advance(
-    const FGenesisRecipeDefinition& Recipe,
+    const FGenesisRuntimeRecipeDefinition& Recipe,
     FGenesisInventory& Input,
     FGenesisInventory& Output,
     const int64 Tick)
