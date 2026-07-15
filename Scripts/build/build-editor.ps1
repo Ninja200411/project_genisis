@@ -1,7 +1,9 @@
 param(
     [string]$EngineRoot,
     [ValidateSet("DebugGame", "Development", "Shipping")]
-    [string]$Configuration = "Development"
+    [string]$Configuration = "Development",
+    [ValidateRange(1, 64)]
+    [int]$MaxParallelActions = 2
 )
 
 $ErrorActionPreference = "Stop"
@@ -18,7 +20,12 @@ if (-not (Test-Path $BuildScript)) {
 }
 
 Write-Host "Verwende Unreal Engine: $ResolvedEngineRoot"
-& $BuildScript ProjectGenesisEditor Win64 $Configuration -Project="$ProjectFile" -WaitMutex -FromMsBuild
+Write-Host "Maximale parallele Build-Aktionen: $MaxParallelActions"
+& $BuildScript ProjectGenesisEditor Win64 $Configuration `
+    -Project="$ProjectFile" `
+    -WaitMutex `
+    -FromMsBuild `
+    -MaxParallelActions=$MaxParallelActions
 
 if ($LASTEXITCODE -ne 0) {
     throw "Editor-Build fehlgeschlagen (ExitCode $LASTEXITCODE)."
