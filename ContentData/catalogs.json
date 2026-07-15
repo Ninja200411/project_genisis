@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "catalogs": {
+    "buildings": [
+      {
+        "id": "building:iron_mine",
+        "name": "Eisenmine",
+        "unit": "building",
+        "tags": ["extraction", "industry"],
+        "references": ["resource:iron_ore"],
+        "description": "Fördert Eisenerz aus einer Lagerstätte."
+      }
+    ],
+    "resources": [
+      {
+        "id": "resource:iron_ore",
+        "name": "Eisenerz",
+        "unit": "kg",
+        "tags": ["ore", "raw"],
+        "references": [],
+        "description": "Unverarbeitetes eisenhaltiges Erz."
+      }
+    ],
+    "people": [
+      {
+        "id": "people:miner",
+        "name": "Bergarbeiter",
+        "unit": "person",
+        "tags": ["extraction", "worker"],
+        "references": ["building:iron_mine"],
+        "description": "Betreibt Förderanlagen und sichert den Abbau."
+      }
+    ],
+    "vehicles": [
+      {
+        "id": "vehicle:haul_truck",
+        "name": "Muldenkipper",
+        "unit": "vehicle",
+        "tags": ["bulk", "transport"],
+        "references": ["resource:iron_ore"],
+        "description": "Transportiert Schüttgut zwischen Mine und Lager."
+      }
+    ],
+    "recipes": [
+      {
+        "id": "recipe:iron_ore_extraction",
+        "name": "Eisenerzförderung",
+        "unit": "batch",
+        "tags": ["extraction"],
+        "references": ["building:iron_mine", "resource:iron_ore"],
+        "description": "Fördert eine definierte Charge Eisenerz."
+      }
+    ],
+    "technologies": [
+      {
+        "id": "technology:mechanized_mining",
+        "name": "Mechanisierter Bergbau",
+        "unit": "technology",
+        "tags": ["extraction", "tier-1"],
+        "references": ["building:iron_mine", "vehicle:haul_truck"],
+        "description": "Schaltet mechanisierte Fördertechnik frei."
+      }
+    ]
+  }
+}
